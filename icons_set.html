@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./fonts/style.css">
+</head>
+<body>
+<div id="search" class="service_panel" onchange="">
+    <input type="text" id="mySearch" onkeyup="filterList(event)" placeholder="Search for names..">
+    <div class="tab">
+        <button class="tablinks" onclick="resetFilters()">Reset</button>
+        <button class="tablinks active" onclick="changeType(event ,'-outline')">Outlined</button>
+        <button class="tablinks" onclick="changeType(event , '')">Filled</button>
+        <button class="tablinks" onclick="changeType(event ,'custom')">Custom</button>
+    </div>
+</div>
+<div id="wrapper">
+
+</div>
+</div>
+
+<script>
+
+    let arr = [
+        'up-open',
+        'activity',
+        'alert-circle', 'alert-triangle',
+        'archive', 'arrow-back',
+        'arrow-circle-down',
+        'arrow-circle-left',
+        'arrow-circle-right',
+        'arrow-circle-up',
+        'arrow-down',
+        'arrow-downward',
+        'arrow-forward',
+        'arrow-ios-back',
+        'arrow-ios-downward',
+        'arrow-ios-forward',
+        'arrow-ios-upward',
+        'arrow-left',
+        'arrow-right',
+        'arrow-up',
+        'arrow-upward',
+        'arrowhead-down',
+        'arrowhead-left',
+        'arrowhead-right',
+        'arrowhead-up',
+        'at',
+        'attach-2',
+        'attach',
+        'award',
+        'backspace',
+        'bar-chart-2',
+        'bar-chart',
+        'battery',
+        'behance',
+        'bell-off',
+        'bell',
+        'bluetooth',
+        'book-open',
+        'book',
+        'bookmark',
+        'briefcase',
+        'browser',
+        'brush',
+        'bulb',
+        'calendar',
+        'camera',
+        'car',
+        'cast',
+        'charging',
+        'checkmark-circle-2',
+        'checkmark-circle',
+        'checkmark',
+        'checkmark-square-2',
+        'checkmark-square',
+        'chevron-down',
+        'chevron-left',
+        'chevron-right',
+        'chevron-up',
+        'clipboard',
+        'clock',
+        'close-circle',
+        'close',
+        'close-square',
+        'cloud-download',
+        'cloud-upload',
+        'code-download',
+        'code',
+        'collapse',
+        'color-palette',
+        'color-picker',
+        'compass',
+        'copy',
+        'corner-down-left',
+        'corner-down-right',
+        'corner-left-down',
+        'corner-left-up',
+        'corner-right-down',
+        'corner-right-up',
+        'corner-up-left',
+        'corner-up-right',
+        'credit-card',
+        'crop',
+        'cube',
+        'diagonal-arrow-left-down',
+        'diagonal-arrow-left-up',
+        'diagonal-arrow-right-down',
+        'diagonal-arrow-right-up',
+        'done-all',
+        'download',
+        'droplet-off',
+        'droplet',
+        'edit-2',
+        'edit',
+        'email',
+        'expand',
+        'external-link',
+        'eye-off-2',
+        'eye-off',
+        'eye',
+        'facebook',
+        'file-add',
+        'file',
+        'file-remove', 'file-text', 'film',
+        'flag',
+        'flash-off',
+        'flash',
+        'flip-2',
+        'flip',
+        'folder-add',
+        'folder',
+        'folder-remove',
+        'funnel',
+        'gift',
+        'github',
+        'globe-2',
+        'globe',
+        'google',
+        'grid',
+        'hard-drive',
+        'hash',
+        'headphones',
+        'heart',
+        'home',
+        'image',
+        'inbox',
+        'info',
+        'keypad',
+        'layers',
+        'layout',
+        'link-2',
+        'link',
+        'linkedin',
+        'list',
+        'loader',
+        'lock',
+        'log-in',
+        'log-out',
+        'map',
+        'maximize',
+        'menu-2',
+        'menu-arrow',
+        'menu',
+        'message-circle',
+        'message-square',
+        'mic-off',
+        'mic',
+        'minimize',
+        'minus-circle',
+        'minus',
+        'minus-square',
+        'monitor',
+        'moon',
+        'more-horizontal',
+        'more-vertical',
+        'move',
+        'music',
+        'navigation-2',
+        'navigation',
+        'npm',
+        'options-2',
+        'options',
+        'pantone',
+        'paper-plane',
+        'pause-circle',
+        'people',
+        'percent',
+        'person-add',
+        'person-delete',
+        'person-done',
+        'person',
+        'person-remove',
+        'phone-call',
+        'phone-missed',
+        'phone-off',
+        'phone',
+        'pie-chart',
+        'pin',
+        'play-circle',
+        'plus-circle',
+        'plus',
+        'plus-square',
+        'power',
+        'pricetags',
+        'printer',
+        'question-mark-circle',
+        'question-mark',
+        'radio-button-off',
+        'radio-button-on',
+        'radio',
+        'recording',
+        'refresh',
+        'repeat',
+        'rewind-left',
+        'rewind-right',
+        'save',
+        'scissors',
+        'search',
+        'settings-2',
+        'settings',
+        'shake',
+        'share',
+        'shield-off',
+        'shield',
+        'shopping-bag',
+        'shopping-cart',
+        'shuffle-2',
+        'shuffle',
+        'skip-back',
+        'skip-forward',
+        'slash',
+        'smartphone',
+        'smiling-face',
+        'speaker',
+        'square',
+        'star',
+        'stop-circle',
+        'sun',
+        'swap',
+        'sync',
+        'text',
+        'thermometer-minus',
+        'thermometer',
+        'thermometer-plus',
+        'toggle-left',
+        'toggle-right',
+        'trash-2',
+        'trash',
+        'trending-down',
+        'trending-up',
+        'tv',
+        'twitter',
+        'umbrella',
+        'undo',
+        'unlock',
+        'upload',
+        'video-off',
+        'video',
+        'volume-down',
+        'volume-mute',
+        'volume-off',
+        'volume-up',
+        'wifi-off',
+        'wifi',
+    ]
+    let TYPE = '-outline'
+    let FILTER = ''
+    let evaIcons = ['up-open',
+        'activity',
+        'alert-circle', 'alert-triangle',
+        'archive', 'arrow-back',
+        'arrow-circle-down',
+        'arrow-circle-left',
+        'arrow-circle-right',
+        'arrow-circle-up',
+        'arrow-down',
+        'arrow-downward',
+        'arrow-forward',
+        'arrow-ios-back',
+        'arrow-ios-downward',
+        'arrow-ios-forward',
+        'arrow-ios-upward',
+        'arrow-left',
+        'arrow-right',
+        'arrow-up',
+        'arrow-upward',
+        'arrowhead-down',
+        'arrowhead-left',
+        'arrowhead-right',
+        'arrowhead-up',
+        'at',
+        'attach-2',
+        'attach',
+        'award',
+        'backspace',
+        'bar-chart-2',
+        'bar-chart',
+        'battery',
+        'behance',
+        'bell-off',
+        'bell',
+        'bluetooth',
+        'book-open',
+        'book',
+        'bookmark',
+        'briefcase',
+        'browser',
+        'brush',
+        'bulb',
+        'calendar',
+        'camera',
+        'car',
+        'cast',
+        'charging',
+        'checkmark-circle-2',
+        'checkmark-circle',
+        'checkmark',
+        'checkmark-square-2',
+        'checkmark-square',
+        'chevron-down',
+        'chevron-left',
+        'chevron-right',
+        'chevron-up',
+        'clipboard',
+        'clock',
+        'close-circle',
+        'close',
+        'close-square',
+        'cloud-download',
+        'cloud-upload',
+        'code-download',
+        'code',
+        'collapse',
+        'color-palette',
+        'color-picker',
+        'compass',
+        'copy',
+        'corner-down-left',
+        'corner-down-right',
+        'corner-left-down',
+        'corner-left-up',
+        'corner-right-down',
+        'corner-right-up',
+        'corner-up-left',
+        'corner-up-right',
+        'credit-card',
+        'crop',
+        'cube',
+        'diagonal-arrow-left-down',
+        'diagonal-arrow-left-up',
+        'diagonal-arrow-right-down',
+        'diagonal-arrow-right-up',
+        'done-all',
+        'download',
+        'droplet-off',
+        'droplet',
+        'edit-2',
+        'edit',
+        'email',
+        'expand',
+        'external-link',
+        'eye-off-2',
+        'eye-off',
+        'eye',
+        'facebook',
+        'file-add',
+        'file',
+        'file-remove', 'file-text', 'film',
+        'flag',
+        'flash-off',
+        'flash',
+        'flip-2',
+        'flip',
+        'folder-add',
+        'folder',
+        'folder-remove',
+        'funnel',
+        'gift',
+        'github',
+        'globe-2',
+        'globe',
+        'google',
+        'grid',
+        'hard-drive',
+        'hash',
+        'headphones',
+        'heart',
+        'home',
+        'image',
+        'inbox',
+        'info',
+        'keypad',
+        'layers',
+        'layout',
+        'link-2',
+        'link',
+        'linkedin',
+        'list',
+        'loader',
+        'lock',
+        'log-in',
+        'log-out',
+        'map',
+        'maximize',
+        'menu-2',
+        'menu-arrow',
+        'menu',
+        'message-circle',
+        'message-square',
+        'mic-off',
+        'mic',
+        'minimize',
+        'minus-circle',
+        'minus',
+        'minus-square',
+        'monitor',
+        'moon',
+        'more-horizontal',
+        'more-vertical',
+        'move',
+        'music',
+        'navigation-2',
+        'navigation',
+        'npm',
+        'options-2',
+        'options',
+        'pantone',
+        'paper-plane',
+        'pause-circle',
+        'people',
+        'percent',
+        'person-add',
+        'person-delete',
+        'person-done',
+        'person',
+        'person-remove',
+        'phone-call',
+        'phone-missed',
+        'phone-off',
+        'phone',
+        'pie-chart',
+        'pin',
+        'play-circle',
+        'plus-circle',
+        'plus',
+        'plus-square',
+        'power',
+        'pricetags',
+        'printer',
+        'question-mark-circle',
+        'question-mark',
+        'radio-button-off',
+        'radio-button-on',
+        'radio',
+        'recording',
+        'refresh',
+        'repeat',
+        'rewind-left',
+        'rewind-right',
+        'save',
+        'scissors',
+        'search',
+        'settings-2',
+        'settings',
+        'shake',
+        'share',
+        'shield-off',
+        'shield',
+        'shopping-bag',
+        'shopping-cart',
+        'shuffle-2',
+        'shuffle',
+        'skip-back',
+        'skip-forward',
+        'slash',
+        'smartphone',
+        'smiling-face',
+        'speaker',
+        'square',
+        'star',
+        'stop-circle',
+        'sun',
+        'swap',
+        'sync',
+        'text',
+        'thermometer-minus',
+        'thermometer',
+        'thermometer-plus',
+        'toggle-left',
+        'toggle-right',
+        'trash-2',
+        'trash',
+        'trending-down',
+        'trending-up',
+        'tv',
+        'twitter',
+        'umbrella',
+        'undo',
+        'unlock',
+        'upload',
+        'video-off',
+        'video',
+        'volume-down',
+        'volume-mute',
+        'volume-off',
+        'volume-up',
+        'wifi-off',
+        'wifi']
+    let evaCustom = ['2-7x', 'appstore', 'arrowsquare', 'audience', 'badge', 'bank', 'bank-2', 'calculate', 'calculate_old', 'color-switch', 'delivered', 'dollar', 'employee-icon', 'fire-outline', 'guidelines', 'horn', 'instagram', 'integration', 'leaf', 'news', 'news-1', 'not-delivered', 'office', 'pause', 'pay-pay-use', 'play', 'playmarket', 'post-check', 'renew', 'service-icon', 'smile', 'stamp', 'supplier', 'target', 'thumb-down', 'thumb-up', 'track', 'track-enquiry', 'tree', 'trusted-alternative', 'universal-access', 'up-open', 'verified', 'whatsapp', 'whatsapp-icon', 'youtube', 'youtube-1', 'youtube-2', 'youtube-3']
+    let WRAPPER = document.getElementById('wrapper')
+    let SEARCH = document.getElementById('mySearch')
+    let ListIcons = [...evaIcons, ...evaCustom]
+    resetFilters=()=>{
+        changeType(null,'-outline')
+        SEARCH.value = null
+
+    }
+    changeType = (evt, type) => {
+        SEARCH.value = ''
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        if(evt){
+            evt.currentTarget.className += " active";
+        }
+
+        if (type === 'custom') {
+            TYPE = ''
+            formList(evaCustom, type)
+        } else {
+            TYPE = type
+            formList(evaIcons, type)
+        }
+    }
+    function fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+
+        // Avoid scrolling to bottom
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+
+        document.body.removeChild(textArea);
+    }
+    function copyTextToClipboard(text) {
+        if (!navigator.clipboard) {
+            fallbackCopyTextToClipboard(text);
+            return;
+        }
+        navigator.clipboard.writeText(text).then(function() {
+            console.log('Async: Copying to clipboard was successful!');
+            alert("Copied the text: " + text)
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    }
+    copyIcon = (icon) => {
+        // navigator.clipboard.writeText(`${icon}${TYPE}`);
+        copyTextToClipboard(icon+TYPE)
+        // alert("Copied the text: " + `${icon}${TYPE}`)
+
+        //
+        // if (!navigator.clipboard) {
+        //     fallbackCopyTextToClipboard(text);
+        //     return;
+        // }
+        // navigator.clipboard.writeText(text).then(function () {
+        //     console.log('Async: Copying to clipboard was successful!');
+        // }, function (err) {
+        //     console.error('Async: Could not copy text: ', err);
+        // });
+
+    }
+
+    function formList(arr, type) {
+        let innerHTML = ''
+        arr.map(el => {
+            const className = `eva eva-${el}`
+            innerHTML += `<div class="icon_wrapper" title="rtrtrtdjasvd" onclick="copyIcon('eva-${el}')">
+            <div class="icon"><i class="${className}${TYPE}"></i></div>
+            <span class="icon_text">${el}</span></div>`
+        })
+        WRAPPER.innerHTML = innerHTML
+    }
+
+    formList(ListIcons, TYPE)
+    filterList = ({target}) => {
+        console.log(target.value);
+        FILTER = target.value
+        formList(arr.filter(el => el.indexOf(FILTER) >= 0), TYPE)
+    }
+
+</script>
+
+</body>
+</html>
